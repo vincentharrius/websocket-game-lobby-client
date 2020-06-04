@@ -35,7 +35,7 @@ export class WebSocketGameLobbyClient {
         this.rws = new ReconnectingWebSocket(
             `${window.location.protocol === 'https:' ? 'wss:' : 'ws:'}//${
                 window.location.hostname
-            }${port ? `:${port}` : ''}?${qs.stringify(
+            }${port && port !== 80 ? `:${port}` : ''}?${qs.stringify(
                 {
                     gameId: gameId || null,
                     gameCode: gameCode || null,
