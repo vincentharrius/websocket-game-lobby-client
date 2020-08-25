@@ -71,7 +71,7 @@ gameLobby.addEventListener('open', () => {
 gameLobby.addEventListener('message', ({ data }) => {
     console.log(JSON.parse(data));
 });
-gameLobby.addEventListener('open', () => {
+gameLobby.addEventListener('close', () => {
     console.log('disconnected');
 });
 ```
