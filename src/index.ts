@@ -65,7 +65,7 @@ export class WebSocketGameLobbyClient {
         }
     }
 
-    send(
+    send<T = any>(
         type: string,
         {
             gameId,
@@ -77,7 +77,7 @@ export class WebSocketGameLobbyClient {
             gameId?: string;
             gameCode?: string;
             playerId?: string;
-            custom?: any;
+            custom?: T;
         } = {}
     ): void {
         this.rws.send(
