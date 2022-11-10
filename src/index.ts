@@ -81,7 +81,14 @@ export class WebSocketGameLobbyClient {
         } = {}
     ): void {
         this.rws.send(
-            JSON.stringify({ type, gameId, gameCode, playerId, ...rest })
+            JSON.stringify({
+                type,
+                gameId,
+                gameCode,
+                playerId,
+                custom,
+                ...rest
+            })
         );
     }
 }
