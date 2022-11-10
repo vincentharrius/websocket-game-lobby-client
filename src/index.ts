@@ -15,6 +15,8 @@ export class WebSocketGameLobbyClient {
 
     keepAliveInterval: number;
 
+    debug: boolean;
+
     constructor({
         port = 80,
         options = {
@@ -23,7 +25,8 @@ export class WebSocketGameLobbyClient {
         gameId,
         gameCode,
         playerId,
-        keepAliveMilliseconds = 30000
+        keepAliveMilliseconds = 30000,
+        debug = false
     }: {
         port?: number;
         options?: Options;
@@ -31,7 +34,9 @@ export class WebSocketGameLobbyClient {
         gameCode?: string;
         playerId?: string;
         keepAliveMilliseconds?: number;
+        debug?: boolean;
     }) {
+        this.debug = debug;
         this.rws = new ReconnectingWebSocket(
             `${window.location.protocol === 'https:' ? 'wss:' : 'ws:'}//${
                 window.location.hostname
@@ -80,15 +85,15 @@ export class WebSocketGameLobbyClient {
             custom?: T;
         } = {}
     ): void {
-        this.rws.send(
-            JSON.stringify({
-                type,
-                gameId,
-                gameCode,
-                playerId,
-                custom,
-                ...rest
-            })
-        );
+        const payload = {
+            type,
+            gameId,
+            gameCode,
+            playerId,
+            custom,
+            ...rest
+        };
+        if (this.debug) console.log(payload);
+        this.rws.send(JSON.stringify(payload));
     }
 }
